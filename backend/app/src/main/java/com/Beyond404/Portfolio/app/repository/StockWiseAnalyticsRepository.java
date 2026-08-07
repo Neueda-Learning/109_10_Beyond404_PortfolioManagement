@@ -35,7 +35,7 @@ public class StockWiseAnalyticsRepository {
 
                     i.transaction_type,
                     i.quantity,
-                    i.transaction_amount,
+                   
                     i.transaction_timestamp
                 FROM customers c
                 INNER JOIN investments i

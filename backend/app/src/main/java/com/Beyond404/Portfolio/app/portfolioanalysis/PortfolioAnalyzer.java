@@ -375,13 +375,9 @@ public class PortfolioAnalyzer {
                         *
                         historicalPrice;
 
+// historicalPrice is already normalized to USD in MarketDataService#getHistoricalPrice
+        return value;
 
-        return marketDataService.convertToUSD(
-                value,
-                getCurrencyFromMarket(
-                        transaction.getStockMarket()
-                )
-        );
     }
 
     private String getCurrencyFromMarket(

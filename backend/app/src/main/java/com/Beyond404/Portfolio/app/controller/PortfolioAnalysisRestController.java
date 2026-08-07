@@ -37,6 +37,7 @@ public class PortfolioAnalysisRestController {
                         .getCustomerPortfolio(customerId);
 
 
+
         return ResponseEntity.ok(portfolio);
     }
 

@@ -124,6 +124,17 @@ public class MarketDataService {
                     usdPrice
             );
 
+            Double usdPreviousClose =
+                    normalizePriceToUSD(
+                            quote.getPreviousClose(),
+                            ticker
+                    );
+
+
+            quote.setPreviousClose(
+                    usdPreviousClose
+            );
+
         }
 
 
@@ -236,9 +247,7 @@ public class MarketDataService {
 
 
         if(price == null) {
-
-            return null;
-
+            return 0.0;
         }
 
 
