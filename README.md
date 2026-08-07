@@ -4,7 +4,14 @@ Beyond404 Portfolio Management is a full-stack portfolio analysis platform for t
 
 The current implementation is centered on advisor or analyst-style portfolio review rather than retail account onboarding. Users select an existing customer profile, inspect holdings and performance, search external market symbols, place simulated buy or sell orders, and run algorithmic analysis checkpoints against a curated list of tickers.
 
+## Architecture
+
+The diagram below shows the technical architecture of the Beyond404 Portfolio Management system, including how the React frontend, Spring Boot backend, FastAPI market-data microservice, Nginx reverse proxy, and MySQL database interact.
+
+![Technical Architecture](./architecture-technical-v2.svg)
+
 ## Summary
+
 
 This website is designed as a portfolio management workspace where a user can:
 

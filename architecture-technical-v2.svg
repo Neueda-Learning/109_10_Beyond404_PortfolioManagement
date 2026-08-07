@@ -1,0 +1,138 @@
+<svg width="1400" height="720" viewBox="0 0 1400 720" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>Beyond404 - technical architecture</title>
+<desc>Docker compose network with frontend, backend, mysql and market-data-server containers, showing exposed ports, the request and response flow between them, the mysql volume, and the external Yahoo Finance API call.</desc>
+
+<defs>
+  <marker id="arrB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <path d="M1 1L9 5L1 9Z" fill="#111111"/>
+  </marker>
+  <marker id="arrG" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <path d="M1 1L9 5L1 9Z" fill="#6B7280"/>
+  </marker>
+</defs>
+
+<rect x="0" y="0" width="1400" height="720" fill="#FFFFFF"/>
+<text x="700" y="42" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#1F2430">Beyond404 - request / response flow</text>
+<text x="700" y="64" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#6B7280">docker-compose services, exposed ports and call direction</text>
+
+<!-- ============ DOCKER NETWORK BOUNDARY ============ -->
+<rect x="150" y="90" width="820" height="580" rx="18" fill="#FAFAFA" stroke="#9CA3AF" stroke-width="1.5" stroke-dasharray="7 5"/>
+<text x="172" y="116" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#6B7280">docker-compose network</text>
+
+<!-- ============ CLIENT (monitor icon, outside network) ============ -->
+<g stroke="#111111" stroke-width="3" fill="none">
+  <rect x="20" y="260" width="110" height="78" rx="6"/>
+  <rect x="29" y="269" width="92" height="52" fill="#FFFFFF"/>
+  <line x1="75" y1="338" x2="75" y2="355"/>
+  <line x1="50" y1="355" x2="100" y2="355"/>
+</g>
+<text x="75" y="378" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#1F2430">Client</text>
+
+<!-- client <-> frontend -->
+<line x1="130" y1="284" x2="205" y2="284" stroke="#111111" stroke-width="2.5" marker-end="url(#arrB)"/>
+<text x="167" y="274" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#374151">request</text>
+<line x1="205" y1="304" x2="130" y2="304" stroke="#6B7280" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrG)"/>
+<text x="167" y="320" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#6B7280">response</text>
+
+<!-- ============ FRONTEND (stacked cards) ============ -->
+<g>
+  <rect x="215" y="215" width="180" height="95" rx="10" fill="#D9D5F8" stroke="#3730A3" stroke-width="2"/>
+  <rect x="207" y="207" width="180" height="95" rx="10" fill="#C7C1F5" stroke="#3730A3" stroke-width="2"/>
+  <rect x="199" y="199" width="180" height="95" rx="10" fill="#EEEBFF" stroke="#3730A3" stroke-width="2"/>
+  <text x="289" y="232" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#2A2560">frontend</text>
+  <text x="289" y="251" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#4338CA">nginx + react build</text>
+  <text x="289" y="267" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#3730A3">host 8082 -&gt; 80</text>
+</g>
+
+<!-- frontend <-> backend -->
+<line x1="380" y1="240" x2="450" y2="240" stroke="#111111" stroke-width="2.5" marker-end="url(#arrB)"/>
+<text x="415" y="230" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#374151">request</text>
+<line x1="450" y1="260" x2="380" y2="260" stroke="#6B7280" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrG)"/>
+<text x="415" y="276" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#6B7280">response</text>
+
+<!-- ============ BACKEND (stacked cards) ============ -->
+<g>
+  <rect x="460" y="205" width="180" height="105" rx="10" fill="#B9D6FB" stroke="#1E3A8A" stroke-width="2"/>
+  <rect x="452" y="197" width="180" height="105" rx="10" fill="#A6CBFA" stroke="#1E3A8A" stroke-width="2"/>
+  <rect x="444" y="189" width="180" height="105" rx="10" fill="#DCEAFE" stroke="#1E3A8A" stroke-width="2"/>
+  <text x="534" y="217" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#1E3A5F">backend</text>
+  <text x="534" y="236" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#1D4ED8">spring boot API</text>
+  <text x="534" y="252" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#1E3A8A">host 8081 -&gt; 8080</text>
+</g>
+
+<!-- backend <-> market-data-server -->
+<line x1="625" y1="222" x2="695" y2="222" stroke="#111111" stroke-width="2.5" marker-end="url(#arrB)"/>
+<text x="660" y="212" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#374151">request</text>
+<line x1="695" y1="242" x2="625" y2="242" stroke="#6B7280" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrG)"/>
+<text x="660" y="258" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#6B7280">response</text>
+
+<!-- backend <-> mysql -->
+<line x1="510" y1="294" x2="510" y2="400" stroke="#111111" stroke-width="2.5" marker-end="url(#arrB)"/>
+<text x="480" y="345" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#374151" transform="rotate(-90 480 345)">query</text>
+<line x1="558" y1="400" x2="558" y2="294" stroke="#6B7280" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrG)"/>
+<text x="588" y="345" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#6B7280" transform="rotate(-90 588 345)">result</text>
+
+<!-- ============ MYSQL (cylinder) ============ -->
+<g>
+  <rect x="440" y="414" width="140" height="120" fill="#3B82F6"/>
+  <ellipse cx="510" cy="414" rx="70" ry="16" fill="#93C5FD" stroke="#1D4ED8" stroke-width="2"/>
+  <ellipse cx="510" cy="534" rx="70" ry="16" fill="#2563EB" stroke="#1D4ED8" stroke-width="2"/>
+  <line x1="440" y1="414" x2="440" y2="534" stroke="#1D4ED8" stroke-width="2"/>
+  <line x1="580" y1="414" x2="580" y2="534" stroke="#1D4ED8" stroke-width="2"/>
+  <text x="510" y="465" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#0B1E4A">mysql</text>
+  <text x="510" y="483" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#0B1E4A">not exposed to host</text>
+</g>
+
+<!-- mysql -> volume -->
+<line x1="580" y1="480" x2="640" y2="480" stroke="#111111" stroke-width="2" marker-end="url(#arrB)"/>
+<text x="608" y="470" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#374151">persists</text>
+
+<!-- ============ VOLUME (small cylinder) ============ -->
+<g>
+  <rect x="650" y="440" width="100" height="80" fill="#9CA3AF"/>
+  <ellipse cx="700" cy="440" rx="50" ry="12" fill="#D1D5DB" stroke="#4B5563" stroke-width="1.8"/>
+  <ellipse cx="700" cy="520" rx="50" ry="12" fill="#6B7280" stroke="#4B5563" stroke-width="1.8"/>
+  <line x1="650" y1="440" x2="650" y2="520" stroke="#4B5563" stroke-width="1.8"/>
+  <line x1="750" y1="440" x2="750" y2="520" stroke="#4B5563" stroke-width="1.8"/>
+  <text x="700" y="478" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#1F2937">volume</text>
+  <text x="700" y="493" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#1F2937">mysql_data</text>
+</g>
+
+<!-- ============ MARKET DATA SERVER (stacked cards) ============ -->
+<g>
+  <rect x="720" y="205" width="210" height="105" rx="10" fill="#9CE3D2" stroke="#0F766E" stroke-width="2"/>
+  <rect x="712" y="197" width="210" height="105" rx="10" fill="#84DBC6" stroke="#0F766E" stroke-width="2"/>
+  <rect x="704" y="189" width="210" height="105" rx="10" fill="#DFFAF3" stroke="#0F766E" stroke-width="2"/>
+  <text x="809" y="217" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#0B4A42">market-data-server</text>
+  <text x="809" y="236" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#0F766E">python service</text>
+  <text x="809" y="252" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#0F766E">host 8083 -&gt; 8000</text>
+</g>
+
+<!-- market-data-server <-> yahoo (crosses network boundary) -->
+<line x1="925" y1="222" x2="1000" y2="222" stroke="#111111" stroke-width="2.5" marker-end="url(#arrB)"/>
+<text x="962" y="212" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#374151">request</text>
+<line x1="1000" y1="242" x2="925" y2="242" stroke="#6B7280" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrG)"/>
+<text x="962" y="258" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#6B7280">response</text>
+
+<!-- ============ YAHOO FINANCE API (external, outside network) ============ -->
+<g>
+  <rect x="1010" y="195" width="200" height="115" rx="14" fill="#FFF4DE" stroke="#B45309" stroke-width="2.5" stroke-dasharray="7 5"/>
+  <circle cx="1035" cy="218" r="8" fill="#7C2D12"/>
+  <text x="1050" y="223" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#7C2D12">external</text>
+  <text x="1110" y="252" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#7C2D12">Yahoo Finance</text>
+  <text x="1110" y="271" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#7C2D12">API</text>
+  <text x="1110" y="291" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#92400E">real-time quotes</text>
+</g>
+
+<!-- ============ LEGEND ============ -->
+<g>
+  <rect x="150" y="600" width="820" height="52" rx="10" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.2"/>
+  <line x1="175" y1="618" x2="215" y2="618" stroke="#111111" stroke-width="2.5" marker-end="url(#arrB)"/>
+  <text x="225" y="622" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#374151">request</text>
+  <line x1="320" y1="618" x2="360" y2="618" stroke="#6B7280" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrG)"/>
+  <text x="370" y="622" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#374151">response</text>
+  <rect x="470" y="608" width="26" height="18" rx="5" fill="#FFF4DE" stroke="#B45309" stroke-width="2" stroke-dasharray="4 3"/>
+  <text x="505" y="622" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#374151">external third-party API, outside the docker network</text>
+</g>
+
+</svg>
